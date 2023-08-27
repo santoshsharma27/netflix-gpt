@@ -69,10 +69,13 @@ function Login() {
           placeholder="Password"
           className="px-4 py-2 mt-5 w-full rounded-md h-12 bg-gray-600 text-white"
         />
+
         <p className="pt-2">{errorMessage}</p>
+
         <button className="p-2 mt-10 text-white bg-red-700 w-full rounded-md h-12">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
+
         {isSignInForm && (
           <div className="flex justify-between items-center mt-4 text-gray-300">
             <div>
