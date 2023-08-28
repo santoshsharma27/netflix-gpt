@@ -9,25 +9,13 @@ export function checkValidData(fullName, email, password) {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
 
   if (!isFullNameValid)
-    return (
-      <span className="text-red-600">
-        Enter Name is not valid, Please enter valid name
-      </span>
-    );
+    return <span>Enter Name is not valid, Please enter valid name</span>;
 
   if (!isEmailValid)
-    return (
-      <span className="text-red-600">
-        Email is not valid, Please enter valid email address
-      </span>
-    );
+    return <span>Email is not valid, Please enter valid email address</span>;
 
   if (!isPasswordValid)
-    return (
-      <span className="text-red-600 pt-3">
-        Password is not valid, Please enter valid password
-      </span>
-    );
+    return <span>Password is not valid, Please enter valid password</span>;
 
   return null;
 }

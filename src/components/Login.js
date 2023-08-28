@@ -1,12 +1,22 @@
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import { useEffect, useRef, useState } from "react";
-import { HOMEPAGE_BG_IMAGE } from "../utils/constant";
+import { HOMEPAGE_BG_IMAGE, USER_AVATAR } from "../utils/constant";
 import { checkValidData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import addUser from "../utils/userSlice";
 
 function Login() {
   const [isSignInForm, setisSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const dispatch = useDispatch();
 
   const fullName = useRef(null);
   const email = useRef(null);
@@ -16,7 +26,7 @@ function Login() {
     setisSignInForm(!isSignInForm);
   }
 
-  function handleLogin(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     const message = isSignInForm
@@ -27,6 +37,59 @@ function Login() {
           password.current.value
         );
     setErrorMessage(message);
+
+    if (message) return;
+
+    if (!isSignInForm) {
+      // Sign Up Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: fullName.current.value,
+            photoURL: USER_AVATAR,
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      // Sign In Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   }
 
   useEffect(() => {
@@ -42,7 +105,7 @@ function Login() {
 
       <form
         className="absolute w-[450px] bg-black mx-auto items-center p-16 md:my-40 right-0 left-0 bg-opacity-80"
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-white mb-8">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -70,7 +133,7 @@ function Login() {
           className="px-4 py-2 mt-5 w-full rounded-md h-12 bg-gray-600 text-white"
         />
 
-        <p className="pt-2">{errorMessage}</p>
+        <p className="pt-2 text-red-600">{errorMessage}</p>
 
         <button className="p-2 mt-10 text-white bg-red-700 w-full rounded-md h-12">
           {isSignInForm ? "Sign In" : "Sign Up"}
