@@ -15,7 +15,11 @@ export function checkValidData(fullName, email, password) {
     return <span>Email is not valid, Please enter valid email address</span>;
 
   if (!isPasswordValid)
-    return <span>Password is not valid, Please enter valid password</span>;
+    return (
+      <span>
+        Password is not valid, Please enter valid password (eg: Test@123)
+      </span>
+    );
 
   return null;
 }

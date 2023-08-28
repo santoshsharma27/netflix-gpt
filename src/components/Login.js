@@ -145,7 +145,9 @@ function Login() {
               <input type="checkbox" />
               <label className=" px-1">Rememeber me</label>
             </div>
-            <Link className="hover:underline">Need help?</Link>
+            <Link to="/help" className="hover:underline">
+              Need help?
+            </Link>
           </div>
         )}
 

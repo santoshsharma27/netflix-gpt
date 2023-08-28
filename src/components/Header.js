@@ -14,9 +14,7 @@ function Header() {
     e.preventDefault();
 
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
       });

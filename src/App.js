@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import Browse from "./components/Browse";
 import Error from "./components/Error";
 import AppLayout from "./components/AppLayout";
+import Help from "./components/Help";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/browse",
         element: <Browse />,
+      },
+      {
+        path: "/help",
+        element: <Help />,
       },
     ],
   },
