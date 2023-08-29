@@ -51,7 +51,7 @@ function Header() {
       {user && (
         <div className="flex items-center">
           <img
-            className="hidden md:block w-12 h-12"
+            className="hidden md:block w-8 h-8 rounded-md"
             alt="user_icon"
             src={user?.photoURL}
           />
