@@ -99,12 +99,12 @@ function Login() {
   return (
     <div>
       <Header />
-      <div className="md:absolute">
+      <div className="md:absolute hidden md:inline-block">
         <img src={HOMEPAGE_BG_IMAGE} alt="logo" />
       </div>
 
       <form
-        className="absolute w-[450px] bg-black mx-auto items-center p-16 md:my-40 right-0 left-0 bg-opacity-80"
+        className="absolute md:w-[450px] bg-black mx-auto items-center p-16 md:my-40 right-0 left-0 bg-opacity-80"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-white mb-8">
