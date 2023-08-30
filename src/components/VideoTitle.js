@@ -14,7 +14,7 @@ function VideoTitle({ title, overview }) {
         <div>
           <button className="bg-gray-500 px-10 py-2 rounded-md text-lg text-white">
             <div className="flex justify-center items-center space-x-1">
-              <HiOutlineInformationCircle className="h-8 w-8" />{" "}
+              <HiOutlineInformationCircle className="h-8 w-8" />
               <span>More Info</span>
             </div>
           </button>
