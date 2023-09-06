@@ -5,7 +5,7 @@ function Movie({ posterPath }) {
   if (!posterPath) return;
 
   return (
-    <div className="w-36 md:w-48 m-2">
+    <div className="m-2 w-36 md:w-48">
       <Link>
         <img
           src={IMG_CDN + posterPath}

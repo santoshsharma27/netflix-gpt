@@ -15,7 +15,6 @@ import addUser from "../utils/userSlice";
 function Login() {
   const [isSignInForm, setisSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
-
   const dispatch = useDispatch();
 
   const fullName = useRef(null);
@@ -34,7 +33,7 @@ function Login() {
       : checkValidData(
           fullName.current.value,
           email.current.value,
-          password.current.value
+          password.current.value,
         );
     setErrorMessage(message);
 
@@ -45,7 +44,7 @@ function Login() {
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
-        password.current.value
+        password.current.value,
       )
         .then((userCredential) => {
           const user = userCredential.user;
@@ -61,7 +60,7 @@ function Login() {
                   email: email,
                   displayName: displayName,
                   photoURL: photoURL,
-                })
+                }),
               );
             })
             .catch((error) => {
@@ -78,7 +77,7 @@ function Login() {
       signInWithEmailAndPassword(
         auth,
         email.current.value,
-        password.current.value
+        password.current.value,
       )
         .then((userCredential) => {
           // Signed in
@@ -99,15 +98,15 @@ function Login() {
   return (
     <div>
       <Header />
-      <div className="md:absolute hidden md:inline-block">
+      <div className="hidden md:absolute md:inline-block">
         <img src={HOMEPAGE_BG_IMAGE} alt="logo" />
       </div>
 
       <form
-        className="absolute md:w-[450px] bg-black mx-auto items-center p-16 md:my-40 right-0 left-0 bg-opacity-80"
+        className="absolute left-0 right-0 mx-auto items-center bg-black bg-opacity-80 p-16 md:my-40 md:w-[450px]"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl font-bold text-white mb-8">
+        <h1 className="mb-8 text-3xl font-bold text-white">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
 
@@ -116,31 +115,31 @@ function Login() {
             ref={fullName}
             type="text"
             placeholder="Full Name"
-            className="px-4 py-2 mt-5 w-full rounded-md h-12 bg-gray-600 text-white"
+            className="mt-5 h-12 w-full rounded-md bg-gray-600 px-4 py-2 text-white"
           />
         )}
 
         <input
           ref={email}
           type="text"
-          placeholder="Email or phone number"
-          className="px-4 py-2 mt-5 w-full rounded-md h-12 bg-gray-600 text-white"
+          placeholder="Email"
+          className="mt-5 h-12 w-full rounded-md bg-gray-600 px-4 py-2 text-white"
         />
         <input
           ref={password}
           type="text"
           placeholder="Password"
-          className="px-4 py-2 mt-5 w-full rounded-md h-12 bg-gray-600 text-white"
+          className="mt-5 h-12 w-full rounded-md bg-gray-600 px-4 py-2 text-white"
         />
 
         <p className="pt-2 text-red-600">{errorMessage}</p>
 
-        <button className="p-2 mt-10 text-white bg-red-700 w-full rounded-md h-12">
+        <button className="mt-10 h-12 w-full rounded-md bg-red-700 p-2 text-white">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
         {isSignInForm && (
-          <div className="flex justify-between items-center mt-4 text-gray-300">
+          <div className="mt-4 flex items-center justify-between text-gray-300">
             <div>
               <input type="checkbox" />
               <label className=" px-1">Rememeber me</label>
@@ -151,18 +150,18 @@ function Login() {
           </div>
         )}
 
-        <div className="text-gray-400 pt-14">
+        <div className="pt-14 text-gray-400">
           <p>
             {isSignInForm ? "New to Netflix?" : "Already Registered?"}
             <span
-              className="px-1 hover:underline text-white cursor-pointer"
+              className="cursor-pointer px-1 text-white hover:underline"
               onClick={toggleSignInForm}
             >
               {isSignInForm ? "Sign up now." : "Sign In Now."}
             </span>
           </p>
         </div>
-        <p className="text-gray-400 pt-5 pb-20">
+        <p className="pb-20 pt-5 text-gray-400">
           This page is protected by Google reCAPTCHA to ensure you're not a bot.
         </p>
       </form>
